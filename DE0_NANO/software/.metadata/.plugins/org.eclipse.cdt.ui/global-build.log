@@ -1,0 +1,5 @@
+16:25:52 **** Build of configuration Nios II for project c_program ****
+make mem_init_generate 
+Info: Building ../c_program_bsp/
+C:/intelFPGA_lite/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../c_program_bsp/
+[BSP build complete]

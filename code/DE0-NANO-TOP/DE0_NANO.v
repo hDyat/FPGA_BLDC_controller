@@ -139,6 +139,7 @@ input 		     [1:0]		GPIO_1_IN;
 	wire pwm_la;
 	wire pwm_lb;
 	wire pwm_lc;
+	
 	//temporary signals
 	wire ha;
 	wire hb;
@@ -146,19 +147,28 @@ input 		     [1:0]		GPIO_1_IN;
 	wire la;
 	wire lb;
 	wire lc;
-	wire toggle;
 	
 	//spi signals
 	wire wSPI_CLK;
 	wire wSPI_CLK_n;
 	wire [7:0] ADC_data;
 	
+	//LCD signals
+	wire [7:0] LCD_DATA;
+	wire		  LCD_D_cn;		//RS
+	wire		  LCD_WEn;		//RW
+	wire		  LCD_CSn;		//Enable
+	
 	//bldc speed measurement signal
-	wire [7:0] rpm;
-//	wire [12:0] speed_a, speed_b, speed_c;
-//	wire [2:0] hall_effect = {hall_a, hall_b, hall_c};
-//	wire [12:0] speed_temp0 = (speed_a < speed_b) ? speed_a : speed_b;
-//	wire [12:0] speed = (speed_temp0 < speed_c) ? speed_temp0 : speed_c;
+	wire [9:0] rpm;
+	
+	//nios input data;
+	wire [7:0] pwm;
+
+	//filtered hall sensor
+	wire hall_f_a;
+	wire hall_f_b;
+	wire hall_f_c;
 
 //=======================================================
 //  Structural coding
@@ -171,6 +181,7 @@ input 		     [1:0]		GPIO_1_IN;
 		.HallA(hall_a), 
 		.HallB(hall_b), 
 		.HallC(hall_c), 
+		.forward(SW[0]),
 		.PWM_HA(pwm_ha),
 		.PWM_HB(pwm_hb),
 		.PWM_HC(pwm_hc),
@@ -182,27 +193,28 @@ input 		     [1:0]		GPIO_1_IN;
 		.HC(hc),
 		.LA(la),
 		.LB(lb),
-		.LC(lc),
-		.toggle(toggle),
-		.rpm(rpm)
+		.LC(lc)
 	);
 	
-	assign GPIO_0[13] = pwm_ha;
-	assign GPIO_0[15] = pwm_la;
-	assign GPIO_0[17] = pwm_hb;
-	assign GPIO_0[19] = pwm_lb;
-	assign GPIO_0[21] = pwm_hc;
-	assign GPIO_0[23] = pwm_lc;
+	assign GPIO_0[12] = pwm_ha;
+	assign GPIO_0[14] = pwm_la;
+	assign GPIO_0[16] = pwm_hb;
+	assign GPIO_0[18] = pwm_lb;
+	assign GPIO_0[20] = pwm_hc;
+	assign GPIO_0[22] = pwm_lc;
 	
 	assign LED = rpm;
-	//assign GPIO_1[23:13] = rpm;
-	//assign LED[0] = toggle;
+	
 	assign GPIO_1[13] = pwm_ha;
 	assign GPIO_1[15] = pwm_lc;
 	assign GPIO_1[17] = pwm_hb;
 	assign GPIO_1[19] = pwm_la;
 	assign GPIO_1[21] = pwm_hc;
 	assign GPIO_1[23] = pwm_lb;
+	
+	assign GPIO_1[18] = hall_a;
+	assign GPIO_1[20] = hall_b;
+	assign GPIO_1[22] = hall_c;
 	
 	SPIPLL		U1	(
 		.inclk0(CLOCK_50),
@@ -215,7 +227,7 @@ input 		     [1:0]		GPIO_1_IN;
 		.iCLK(wSPI_CLK),
 		.iCLK_n(wSPI_CLK_n),
 		.iGO(KEY[1]),
-		.iCH(SW[2:0]),
+		.iCH(3'b000),
 		.oLED(ADC_data),
 						
 		.oDIN(ADC_SADDR),
@@ -224,7 +236,49 @@ input 		     [1:0]		GPIO_1_IN;
 		.iDOUT(ADC_SDAT)
 	);
 	
-	//assign LED = ADC_data;
+	nios2_proc U3 (
+		.clk_clk                              (CLOCK_50),
+		.reset_reset_n                        (1'b1),
+		.pwm_out_external_connection_export   (pwm),
+		.speed_ref_external_connection_export (rpm),
+		.lcd_external_connection_export       ({LCD_CSn, LCD_D_cn, LCD_WEn, LCD_DATA}),
+		.adc_data_external_connection_export  (ADC_data)
+	);
+	
+	assign GPIO_0[0] = LCD_DATA[7];
+	assign GPIO_0[1] = LCD_DATA[6];
+	assign GPIO_0[3] = LCD_DATA[5];
+	assign GPIO_0[5] = LCD_DATA[4];
+	assign GPIO_0[7] = LCD_DATA[3];
+	assign GPIO_0[9] = LCD_DATA[2];
+	assign GPIO_0[11] = LCD_DATA[1];
+	assign GPIO_0[13] = LCD_DATA[0];
+	
+	assign GPIO_0[15] = LCD_CSn;
+	assign GPIO_0[17] = LCD_WEn;
+	assign GPIO_0[19] = LCD_D_cn;
+	
+	// hall filter
+	edge_detection_wrapper U4 (
+		.clock(CLOCK_50),
+		.reset(rst),
+		.hall_a(hall_a),
+		.hall_b(hall_b),
+		.hall_c(hall_c),
+		.hall_f_a(hall_f_a),
+		.hall_f_b(hall_f_b),
+		.hall_f_c(hall_f_c)
+	);
+	
+	//speed calculation of 3 hall sensors
+	speed_calculation_wrapper U5 (
+		.clock(CLOCK_50),
+		.reset(rst),
+		.hall_f_a(hall_f_a),
+		.hall_f_b(hall_f_b),
+		.hall_f_c(hall_f_c),
+		.rpm(rpm)
+	);
 	
 //	top_speed_mac U3 (
 //		.clock_sys(clk_sys),
@@ -254,9 +308,4 @@ input 		     [1:0]		GPIO_1_IN;
 //		.rst(rst),
 //		.RPM_out(speed_c)
 //	);
-	
-	
-	
-	
-
 endmodule

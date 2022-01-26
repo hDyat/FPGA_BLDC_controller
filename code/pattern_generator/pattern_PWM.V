@@ -5,7 +5,8 @@ module pattern_PWM
 		potensio_value, 
 		HallA, 
 		HallB, 
-		HallC, 
+		HallC,
+		forward,
 		PWM_HA, 
 		PWM_HB, 
 		PWM_HC, 
@@ -17,14 +18,13 @@ module pattern_PWM
 		HC,
 		LA,
 		LB,
-		LC,
-		toggle,
-		rpm
+		LC
 	);
 	
 	parameter dwidth = 10;
 	input clk; 
 	input rst;
+	input forward;
 	input HallA; 
 	input HallB; 
 	input HallC;
@@ -42,8 +42,6 @@ module pattern_PWM
 	output LA;
 	output LB;
 	output LC;
-	output toggle;
-	output [7:0] rpm;
 	
 	wire clock_pwm;
 	
@@ -60,22 +58,11 @@ module pattern_PWM
 		.clock_div(clock_pwm)
 	);
 	
-	//instantiate pattern_generator
-//	pattern_generator U0(
-//		.HallA(HallA), 
-//		.HallB(HallB), 
-//		.HallC(HallC), 
-//		.HA(HA), 
-//		.HB(HB), 
-//		.HC(HC), 
-//		.LA(LA), 
-//		.LB(LB), 
-//		.LC(LC)
-//	);
 	
-	commutation U0 (
+	fw_rv_commutation U0 (
 		.clock(clk),
 		.reset(rst),
+		.forward(forward),
 		.halla(HallA),
 		.hallb(HallB),
 		.hallc(HallC),
@@ -115,18 +102,7 @@ module pattern_PWM
 	assign PWM_LB = LB;
 	assign PWM_LC = LC;
 	
-	speed_calculation U4 (
-		.clk(clk),
-		.rst(rst),
-		.HA(HA),
-		.HB(HB),
-		.HC(HC),
-		.LA(LA),
-		.LB(LB),
-		.LC(LC),
-		.toggle(toggle),
-		.revolution(rpm)
-	);
+	
 	
 	//bipolar independent pwm switching
 //	pwm_generator #(.n(dwidth)) U4(

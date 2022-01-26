@@ -3,31 +3,19 @@ module speed_calculation
 (
 	clk,
 	rst,
-	HA,
-	HB,
-	HC,
-	LA,
-	LB,
-	LC,
-	toggle,
+	hall_sensor,
 	revolution
 );
 	
 	input clk;
 	input rst;
-	input HA;
-	input HB;
-	input HC;
-	input LA;
-	input LB;
-	input LC;
+	input hall_sensor;
 	
 	output [7:0] revolution;
-	output toggle;
 	
-	wire enable;
+	//wire enable;
 	
-	assign enable = (HA & ~LA & ~HB & LB & ~LC);
+	//assign enable = (HA & ~LA & ~HB & LB & ~LC);
 	
 	reg [25:0] count;
 	wire max_count = (count == MAX_VALUE); //max_count = 49,999,999
@@ -42,7 +30,7 @@ module speed_calculation
 	//counter mechanical cycles
 	reg [7:0] mec_cycles = 8'h0;
 	wire min_count = (count == 26'h0);
-	always @ (posedge enable, posedge min_count)
+	always @ (posedge hall_sensor, posedge min_count)
 		if(min_count)
 			mec_cycles <= 8'h0;
 		else
@@ -55,7 +43,6 @@ module speed_calculation
 		else if(max_count)
 			D <= mec_cycles;
 			
-	assign toggle = enable;
 	assign revolution = D;
 endmodule
 

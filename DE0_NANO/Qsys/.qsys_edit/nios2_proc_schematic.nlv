@@ -1,0 +1,26 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst nios2_proc.speed_ref -pg 1 -lvl 2 -y 580
+preplace inst nios2_proc.nios2 -pg 1 -lvl 2 -y 70
+preplace inst nios2_proc.jtag_uart -pg 1 -lvl 2 -y 300
+preplace inst nios2_proc.LCD -pg 1 -lvl 3 -y 50
+preplace inst nios2_proc -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst nios2_proc.ram -pg 1 -lvl 2 -y 500
+preplace inst nios2_proc.pwm_out -pg 1 -lvl 2 -y 400
+preplace inst nios2_proc.nios2.cpu -pg 1
+preplace inst nios2_proc.nios2.clock_bridge -pg 1
+preplace inst nios2_proc.nios2.reset_bridge -pg 1
+preplace inst nios2_proc.clk_0 -pg 1 -lvl 1 -y 190
+preplace inst nios2_proc.adc_data -pg 1 -lvl 3 -y 160
+preplace netloc EXPORT<net_container>nios2_proc</net_container>(SLAVE)nios2_proc.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>nios2_proc</net_container>(SLAVE)LCD.reset,(SLAVE)adc_data.reset,(SLAVE)speed_ref.reset,(SLAVE)pwm_out.reset,(SLAVE)nios2.reset,(SLAVE)jtag_uart.reset,(SLAVE)ram.reset1,(MASTER)clk_0.clk_reset) 1 1 2 400 250 900
+preplace netloc EXPORT<net_container>nios2_proc</net_container>(SLAVE)nios2_proc.pwm_out_external_connection,(SLAVE)pwm_out.external_connection) 1 0 2 NJ 430 NJ
+preplace netloc INTERCONNECT<net_container>nios2_proc</net_container>(SLAVE)pwm_out.s1,(SLAVE)jtag_uart.avalon_jtag_slave,(SLAVE)LCD.s1,(SLAVE)speed_ref.s1,(SLAVE)nios2.debug_mem_slave,(SLAVE)adc_data.s1,(MASTER)nios2.data_master,(MASTER)nios2.instruction_master,(SLAVE)ram.s1) 1 1 2 440 230 880
+preplace netloc EXPORT<net_container>nios2_proc</net_container>(SLAVE)nios2_proc.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>nios2_proc</net_container>(SLAVE)LCD.external_connection,(SLAVE)nios2_proc.lcd_external_connection) 1 0 3 NJ 40 NJ 30 NJ
+preplace netloc FAN_OUT<net_container>nios2_proc</net_container>(SLAVE)ram.clk1,(SLAVE)LCD.clk,(SLAVE)nios2.clk,(MASTER)clk_0.clk,(SLAVE)jtag_uart.clk,(SLAVE)speed_ref.clk,(SLAVE)adc_data.clk,(SLAVE)pwm_out.clk) 1 1 2 420 210 860
+preplace netloc POINT_TO_POINT<net_container>nios2_proc</net_container>(MASTER)nios2.irq,(SLAVE)jtag_uart.irq) 1 1 2 460 290 840
+preplace netloc EXPORT<net_container>nios2_proc</net_container>(SLAVE)nios2_proc.speed_ref_external_connection,(SLAVE)speed_ref.external_connection) 1 0 2 NJ 610 NJ
+preplace netloc EXPORT<net_container>nios2_proc</net_container>(SLAVE)nios2_proc.adc_data_external_connection,(SLAVE)adc_data.external_connection) 1 0 3 NJ 270 NJ 270 NJ
+levelinfo -pg 1 0 190 1110
+levelinfo -hier nios2_proc 200 230 600 950 1100

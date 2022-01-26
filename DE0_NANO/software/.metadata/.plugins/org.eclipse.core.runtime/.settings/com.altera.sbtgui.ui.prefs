@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+newSoftwareExampleWizardPage.defaultLocation=D\:\\project\\bldc_controller\\DE0_NANO\\software\\c_program
+newSoftwareExampleWizardPage.sopcinfoFile=D\:\\project\\bldc_controller\\DE0_NANO\\nios2_proc.sopcinfo
+newSoftwareExampleWizardPage2.newBspLocation=D\:\\project\\bldc_controller\\DE0_NANO\\software\\c_program_bsp

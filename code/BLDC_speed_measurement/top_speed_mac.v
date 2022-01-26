@@ -7,8 +7,8 @@ module top_speed_mac
         toggle
     );
 	 
-	 localparam  max_count = 435;
-	 parameter dwidth		  = 11;
+	localparam  max_count = 435;
+	parameter dwidth	= 11;
 
     input         clock_sys;
     input         reset;
