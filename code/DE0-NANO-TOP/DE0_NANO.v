@@ -203,7 +203,7 @@ input 		     [1:0]		GPIO_1_IN;
 	assign GPIO_0[20] = pwm_hc;
 	assign GPIO_0[22] = pwm_lc;
 	
-	assign LED = rpm;
+	assign LED = ADC_data;
 	
 	assign GPIO_1[13] = pwm_ha;
 	assign GPIO_1[15] = pwm_lc;

@@ -98,11 +98,17 @@ module fw_rv_commutation (
 	end
 	
 	//define output
-	assign ha = (forward == 1'b1) ? ((state_Q == D) || (state_Q == E)) : ((state_Q == A) || (state_Q == B));	
-	assign hb = (forward == 1'b1) ? ((state_Q == A) || (state_Q == F)) : ((state_Q == C) || (state_Q == D));
-	assign hc = (forward == 1'b1) ? ((state_Q == B) || (state_Q == C)) : ((state_Q == E) || (state_Q == F));
-	assign la = (forward == 1'b1) ? ((state_Q == A) || (state_Q == B)) : ((state_Q == D) || (state_Q == E));
-	assign lb = (forward == 1'b1) ? ((state_Q == C) || (state_Q == D)) : ((state_Q == A) || (state_Q == F));
-	assign lc = (forward == 1'b1) ? ((state_Q == E) || (state_Q == F)) : ((state_Q == B) || (state_Q == C));
+	assign ha = (forward == 1'b1) ? ((state_Q == D) || (state_Q == E)) 
+											: ((state_Q == A) || (state_Q == B));	
+	assign hb = (forward == 1'b1) ? ((state_Q == A) || (state_Q == F)) 
+											: ((state_Q == C) || (state_Q == D));
+	assign hc = (forward == 1'b1) ? ((state_Q == B) || (state_Q == C)) 
+											: ((state_Q == E) || (state_Q == F));
+	assign la = (forward == 1'b1) ? ((state_Q == A) || (state_Q == B)) 
+											: ((state_Q == D) || (state_Q == E));
+	assign lb = (forward == 1'b1) ? ((state_Q == C) || (state_Q == D)) 
+											: ((state_Q == A) || (state_Q == F));
+	assign lc = (forward == 1'b1) ? ((state_Q == E) || (state_Q == F)) 
+											: ((state_Q == B) || (state_Q == C));
 	
 endmodule

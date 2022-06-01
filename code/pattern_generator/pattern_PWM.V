@@ -52,12 +52,13 @@ module pattern_PWM
 	wire LB;
 	wire LC;
 	
-	clk_div#(.n(1)) div1(
-		.clk_sys(clk),
-		.reset(rst), 
-		.clock_div(clock_pwm)
-	);
+//	clk_div#(.n(5)) div1(
+//		.clk_sys(clk),
+//		.reset(rst), 
+//		.clock_div(clock_pwm)
+//	);
 	
+	assign clock_pwm = clk;
 	
 	fw_rv_commutation U0 (
 		.clock(clk),
