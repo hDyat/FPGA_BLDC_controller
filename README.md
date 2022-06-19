@@ -1,1 +1,2 @@
-This project was my final project to fulfill undergraduate degree at Hasanuddin University 
+This project is about bldc motor controller using FPGA.
+
