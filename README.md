@@ -10,4 +10,4 @@ The main part of this controller is trapezoid control or six-step commutation wh
 
 
 ## speed calculator
- another feature of this controller is speed calculation modules that provide information about the speed of rotation of bldc motor in rpm.
+another feature of this controller is speed calculation modules that provide information about the speed of rotation of the BLDC motor in rpm.
