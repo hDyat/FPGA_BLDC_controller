@@ -17,7 +17,7 @@ The main part of this controller is trapezoid control or six-step commutation wh
 another feature of this controller is speed calculation modules that provide information about the speed of rotation of the BLDC motor in rpm. the speeds data are acquired from hall effect sensor signal, because this signal sometimes produces noise, hence I designed digital filter along with analog filter (low pass filter).
 
 ## Motor Driver (3-phase Inverter + FPGA Board)
-<img src="https://user-images.githubusercontent.com/49807950/207264480-1258c45a-fc92-4426-aca2-d14f0269f39f.jpeg" width = 500 height = 250>
+<img src="https://user-images.githubusercontent.com/49807950/207264480-1258c45a-fc92-4426-aca2-d14f0269f39f.jpeg" width = 500 height = 300>
 
 
 
