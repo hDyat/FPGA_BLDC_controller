@@ -11,3 +11,7 @@ The main part of this controller is trapezoid control or six-step commutation wh
 
 ## speed calculator
 another feature of this controller is speed calculation modules that provide information about the speed of rotation of the BLDC motor in rpm.
+
+## Motor Driver (3-phase Inverter + FPGA Board)
+![Motor_Driver](https://user-images.githubusercontent.com/49807950/207245986-fc7288a0-92cc-4d0b-8c69-164ebfc4475a.jpeg)
+
