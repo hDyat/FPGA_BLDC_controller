@@ -1,5 +1,5 @@
 # This project is about BLDC motor controller using FPGA. 
-The picture below shows the block diagram of the system design, the outline of the system consists of hardware (three-phase inverter) and FPGA (modules written in Verilog HDL) 
+The pictures below depicted block diagram of the system design, the outline of the system consists of hardware (three-phase inverter) and FPGA (modules written in Verilog HDL) 
 
 <img src="https://user-images.githubusercontent.com/49807950/174469247-d4324b46-c33f-416a-863b-4184044c8d0d.png" width=500 height=250>
 
@@ -14,7 +14,7 @@ The main part of this controller is trapezoid control algorithm or six-step comm
 
 
 ## speed calculator
-Another feature of this controller is speed calculation modules that provide information about the speed rotation of the BLDC motor in rpm. the speed data are acquired from hall effect sensor signal, because this signal sometimes produces noise, hence I also designed digital filter along with analog filter (low pass filter) to reduce the noise.
+Another feature of this controller is speed calculation modules that provide information about the speed rotation of the BLDC motor in rpm with accuracy up to 98.9%. the speed data are acquired from hall effect sensor signal, because this signal sometimes produces noise, therefore I also designed digital filter along with analog filter (low pass filter) to reduce the noise.
 
 ## Motor Driver (3-phase Inverter + FPGA Board)
 <img src="https://user-images.githubusercontent.com/49807950/207264480-1258c45a-fc92-4426-aca2-d14f0269f39f.jpeg" width = 500 height = 300>
