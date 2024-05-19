@@ -1,0 +1,4 @@
+Record=TopLevelDocument|FileName=IOandFPGA.SchDoc|SheetNumber=2
+Record=NoMainPathDocument|SourceDocument=IOandFPGA.SchDoc|FileName=Motor_Driver.SchDoc|SheetNumber=1
+Record=NoMainPathDocument|SourceDocument=IOandFPGA.SchDoc|FileName=Power_FPGA.SchDoc|SheetNumber=3
+Record=NoMainPathDocument|SourceDocument=IOandFPGA.SchDoc|FileName=Power_LCD.SchDoc|SheetNumber=4
