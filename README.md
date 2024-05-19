@@ -14,7 +14,7 @@ The main part of this controller is trapezoid control algorithm or six-step comm
 
 
 ## speed calculator
-Another feature of this controller is speed calculation modules that provide information about the speed rotation of the BLDC motor in rpm with accuracy up to 98.9%. the speed data are acquired from hall effect sensor signal, because this signal sometimes produces noise, therefore I also designed digital filter along with analog filter (low pass filter) to reduce the noise.
+Another feature of this controller is speed calculation modules that provide information about the speed rotation of the BLDC motor in rpm with accuracy up to 98.9%. the speed data are acquired from hall effect sensor signals, because these signals sometimes produces noise, therefore I also designed digital filter along with analog filter (low pass filter) to reduce the noise.
 
 ## Motor Driver (3-phase Inverter + FPGA Board)
 <img src="https://user-images.githubusercontent.com/49807950/207264480-1258c45a-fc92-4426-aca2-d14f0269f39f.jpeg" width = 500 height = 300>
